@@ -1,3 +1,4 @@
+import os
 import tkinter as tk
 from tkinter import ttk
 from PIL import Image, ImageTk
@@ -15,7 +16,7 @@ def on_login():
         widget.destroy()
 
     # Play the login sound
-    pygame.mixer.music.load("win95login.mp3")
+    pygame.mixer.music.load(os.path.join(current_dir, "win95login.mp3"))
     pygame.mixer.music.play()
 
     # Load the desktop with taskbar only
@@ -29,7 +30,7 @@ def load_taskbar():
 
     # Load the Start button image
     try:
-        start_image = Image.open("WinStart.jpg")
+        start_image = Image.open(os.path.join(current_dir, "WinStart.jpg"))
         start_image = start_image.resize((100, int(start_image.height * (100 / start_image.width))), Image.LANCZOS)
         start_photo = ImageTk.PhotoImage(start_image)
     except Exception as e:
@@ -131,6 +132,9 @@ def update_time(label):
     label.config(text=current_time)
     label.after(1000, update_time, label)
 
+# Get the current directory
+current_dir = os.path.dirname(os.path.abspath(__file__))
+
 # Set up the login screen
 root = tk.Tk()
 root.title("Windows 95")
@@ -139,7 +143,7 @@ root.configure(bg="#00807F")
 
 # Load the welcome screen image
 try:
-    welcome_image = Image.open("windows95MSG.jpg")
+    welcome_image = Image.open(os.path.join(current_dir, "windows95MSG.jpg"))
     welcome_image = welcome_image.resize((int(welcome_image.width * 0.8), int(welcome_image.height * 0.8)), Image.LANCZOS)
     welcome_photo = ImageTk.PhotoImage(welcome_image)
 except Exception as e:
